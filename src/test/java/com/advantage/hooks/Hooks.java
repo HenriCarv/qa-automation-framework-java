@@ -1,20 +1,18 @@
-package com.advantage.base;
+package com.advantage.hooks;
 
 import com.advantage.drivers.DriverFactory;
-import org.junit.After;
-import org.junit.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 
-public class BaseTest {
+public class Hooks {
 
     @Before
     public void setUp() {
-        // 🔥 abre o navegador antes de cada teste
         DriverFactory.getDriver();
     }
 
     @After
     public void tearDown() {
-        // 🔥 fecha o navegador depois de cada teste
         DriverFactory.quitDriver();
     }
 }
