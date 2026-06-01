@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,6 +11,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
@@ -19,6 +21,7 @@
         <cucumber.version>7.18.1</cucumber.version>
         <junit.version>4.13.2</junit.version>
         <allure.version>2.29.0</allure.version>
+
     </properties>
 
     <dependencies>
@@ -67,7 +70,7 @@
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- Log4j (APENAS core + api, sem explosão de dependência) -->
+        <!-- Log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -87,7 +90,7 @@
             <version>1.0.2</version>
         </dependency>
 
-        <!-- REST Assured (opcional, mas ok manter) -->
+        <!-- Rest Assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -95,6 +98,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -116,20 +120,38 @@
     </dependencies>
 
     <build>
+
         <plugins>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
+
                 <configuration>
+
                     <includes>
                         <include>**/TestRunner.java</include>
                     </includes>
+
+                    <systemPropertyVariables>
+                        <allure.results.directory>
+                            ${project.build.directory}/allure-results
+                        </allure.results.directory>
+                    </systemPropertyVariables>
+
                 </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
             </plugin>
 
         </plugins>
+
     </build>
 
 </project>

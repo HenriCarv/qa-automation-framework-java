@@ -16,7 +16,8 @@ import org.junit.runner.RunWith;
 
         plugin = {
                 "pretty",
-                "html:target/cucumber-report.html"
+                "html:target/cucumber-report.html",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
 
         monochrome = true
