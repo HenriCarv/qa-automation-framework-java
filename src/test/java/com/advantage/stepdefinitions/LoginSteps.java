@@ -3,6 +3,7 @@ package com.advantage.stepdefinitions;
 import com.advantage.pages.CheckoutPage;
 import com.advantage.pages.HomePage;
 import com.advantage.pages.LoginPage;
+import com.advantage.utils.ConfigReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -23,7 +24,10 @@ public class LoginSteps {
 
     @When("the user logs in with valid credentials")
     public void userLogsIn() {
-        loginPage.login("teste123", "Teste@123");
+        loginPage.login(
+                ConfigReader.get("username"),
+                ConfigReader.get("password")
+        );;
     }
 
     @Then("the user should see the home page")

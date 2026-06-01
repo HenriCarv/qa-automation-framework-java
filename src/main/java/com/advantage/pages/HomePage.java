@@ -1,5 +1,6 @@
 package com.advantage.pages;
 
+import com.advantage.utils.ConfigReader;
 import com.advantage.utils.Util;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -20,10 +21,17 @@ public class HomePage extends Util {
     private WebElement searchInput;
 
     public void openWebsite() {
-        driver.get("https://advantageonlineshopping.com/");
+
+        driver.get(
+                ConfigReader.get("url")
+        );
     }
 
     public void searchProduct() {
+        waitForPageLoad();
+
+        waitForLoaderToDisappear();
+
         clickElement(categoryLaptop);
     }
 
