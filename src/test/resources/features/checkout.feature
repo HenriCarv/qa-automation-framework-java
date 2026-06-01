@@ -6,13 +6,10 @@ Feature: Checkout
 
   Background:
     Given the user accesses the Advantage Shopping website
+    And the user logs in with valid credentials
 
-  Scenario: Successful checkout using a valid user
-    When the user logs in with valid credentials
-    And the user searches for a product
+  Scenario: CT005 - Verify selected product is added to the shopping cart
+    Then the user searches for a product
     And the user adds the product to the cart
     And the user opens the shopping cart
-    And the user proceeds to checkout
-    And the user fills in payment details
-    And the user confirms the purchase
-    Then the purchase should be completed successfully
+    And the selected product should be displayed in the shopping cart

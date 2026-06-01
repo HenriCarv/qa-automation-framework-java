@@ -1,13 +1,20 @@
 package com.advantage.pages;
 
+import com.advantage.utils.Util;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class HomePage extends BasePage {
+public class HomePage extends Util {
 
-    @FindBy(id = "menuSearch")
+    @FindBy(id = "searchSection")
     private WebElement searchIcon;
+
+    @FindBy(id = "laptopsTxt")
+    private WebElement categoryLaptop;
+
+    @FindBy(name = "save_to_cart")
+    private WebElement addCart;
 
     @FindBy(id = "autoComplete")
     private WebElement searchInput;
@@ -16,10 +23,8 @@ public class HomePage extends BasePage {
         driver.get("https://advantageonlineshopping.com/");
     }
 
-    public void searchProduct(String product) {
-        clickElement(searchIcon);
-        typeText(searchInput, product);
-        searchInput.sendKeys(Keys.ENTER);
+    public void searchProduct() {
+        clickElement(categoryLaptop);
     }
 
     public void waitSearchProduct() {

@@ -5,25 +5,18 @@ import com.advantage.pages.HomePage;
 import com.advantage.pages.LoginPage;
 import io.cucumber.java.en.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class CheckoutSteps {
 
     HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
     CheckoutPage checkoutPage = new CheckoutPage();
 
-    @Given("the user accesses the Advantage Shopping website")
-    public void userAccessesWebsite() {
-        homePage.openWebsite();
-    }
-
-    @When("the user logs in with valid credentials")
-    public void userLogsIn() {
-        loginPage.login("teste123", "Teste@123");
-    }
-
     @When("the user searches for a product")
     public void userSearchesProduct() {
-        homePage.searchProduct("laptop");
+        homePage.searchProduct();
     }
 
     @And("the user adds the product to the cart")
@@ -36,29 +29,20 @@ public class CheckoutSteps {
         checkoutPage.openCart();
     }
 
-    @And("the user proceeds to checkout")
-    public void userProceedsToCheckout() {
-        checkoutPage.proceedToCheckout();
-    }
+    @Then("the selected product should be displayed in the shopping cart")
+    public void theSelectedProductShouldBeDisplayedInTheShoppingCart() {
 
-    @And("the user fills in payment details")
-    public void userFillsPaymentDetails() {
-        checkoutPage.fillPaymentData();
-    }
+        String selectedProduct = checkoutPage.getSelectedProductName();
+        String cartProduct = checkoutPage.getCartProductName();
 
-    @And("the user confirms the purchase")
-    public void userConfirmsPurchase() {
-        checkoutPage.confirmPurchase();
-    }
+        System.out.println("Produto selecionado: " + selectedProduct);
+        System.out.println("Produto no carrinho: " + cartProduct);
 
-    @Then("the purchase should be completed successfully")
-    public void purchaseShouldBeSuccessful() {
-        checkoutPage.validateSuccessPurchase();
-    }
+        assertTrue(
+                selectedProduct.equalsIgnoreCase(cartProduct)
+        );
 
-    @Then("the user should see the home page")
-    public void the_user_should_see_the_home_page() {
-        homePage.waitSearchProduct();
+        System.out.println("Validação realizada com sucesso: o produto do carrinho corresponde ao produto selecionado.");
     }
 
 }
