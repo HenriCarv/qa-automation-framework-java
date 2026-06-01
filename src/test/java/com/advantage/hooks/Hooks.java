@@ -8,11 +8,18 @@ public class Hooks {
 
     @Before
     public void setUp() {
+
         DriverFactory.getDriver();
+
+        DriverFactory
+                .getDriver()
+                .manage()
+                .deleteAllCookies();
     }
 
     @After
     public void tearDown() {
+
         DriverFactory.quitDriver();
     }
 }
