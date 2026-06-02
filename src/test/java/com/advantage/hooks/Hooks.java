@@ -1,10 +1,12 @@
 package com.advantage.hooks;
 
 import com.advantage.drivers.DriverFactory;
-import com.advantage.utils.ScreenshotUtil;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
 
@@ -18,18 +20,50 @@ public class Hooks {
                 .deleteAllCookies();
     }
 
+    @AfterStep
+    public void afterStep(Scenario scenario) {
+
+        try {
+
+            byte[] screenshot = ((TakesScreenshot) DriverFactory.getDriver())
+                    .getScreenshotAs(OutputType.BYTES);
+
+            scenario.attach(
+                    screenshot,
+                    "image/png",
+                    "Step Screenshot"
+            );
+
+        } catch (Exception e) {
+
+            System.out.println("Erro screenshot step: " + e.getMessage());
+        }
+    }
+
     @After
     public void tearDown(Scenario scenario) {
 
-        if (scenario.isFailed()) {
+        try {
 
-            scenario.attach(
-                    ScreenshotUtil.takeScreenshot(),
-                    "image/png",
-                    "Failure Screenshot"
-            );
+            if (scenario.isFailed()) {
+
+                byte[] screenshot = ((TakesScreenshot) DriverFactory.getDriver())
+                        .getScreenshotAs(OutputType.BYTES);
+
+                scenario.attach(
+                        screenshot,
+                        "image/png",
+                        "Failure Screenshot"
+                );
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Erro screenshot falha: " + e.getMessage());
+
+        } finally {
+
+            DriverFactory.quitDriver();
         }
-
-        DriverFactory.quitDriver();
     }
 }
