@@ -1,4 +1,4 @@
-package com.advantage.hooks;
+package com.advantage.web.hooks;
 
 import com.advantage.drivers.DriverFactory;
 import io.cucumber.java.After;

@@ -9,22 +9,21 @@ import static io.restassured.RestAssured.given;
 
 public class AccountClient {
 
-    @Step("Realizar login")
+    @Step("Login na API")
     public Response login(LoginRequest request) {
 
         return given()
-                .contentType(ContentType.JSON)
                 .log().all()
+                .contentType(ContentType.JSON)
                 .body(request)
                 .when()
                 .post("/accountservice/accountrest/api/v1/login")
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
 
-    @Step("Validar health check")
+    @Step("Health Check")
     public Response healthCheck() {
 
         return given()
@@ -32,7 +31,6 @@ public class AccountClient {
                 .when()
                 .get("/accountservice/accountrest/api/v1/health-check")
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }

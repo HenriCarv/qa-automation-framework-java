@@ -1,4 +1,4 @@
-package com.advantage.stepdefinitions;
+package com.advantage.web.stepdefinitions;
 
 import com.advantage.pages.CheckoutPage;
 import com.advantage.pages.HomePage;
