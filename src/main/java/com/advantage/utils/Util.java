@@ -31,7 +31,19 @@ public class Util {
     // =========================
 
     protected void clickElement(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+
+        waitForPageLoad();
+        waitForLoaderToDisappear();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(element)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript(
+                        "arguments[0].click();",
+                        element
+                );
     }
 
     protected void clickSafe(WebElement element) {

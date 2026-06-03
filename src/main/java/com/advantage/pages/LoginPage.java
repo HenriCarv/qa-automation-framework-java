@@ -79,7 +79,8 @@ public class LoginPage extends Util {
     }
 
     public void clickOutsideFields() {
-        remember.click();
+        waitForLoaderToDisappear();
+        clickSafe(remember);
     }
 
     public void validateUsernameRequiredMessage(String expectedMessage) {

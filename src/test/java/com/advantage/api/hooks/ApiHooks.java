@@ -6,25 +6,32 @@ import com.advantage.database.DatabaseInitializer;
 import com.advantage.database.TestExecution;
 import com.advantage.database.TestExecutionDao;
 import io.cucumber.java.After;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 
 import java.time.LocalDateTime;
 
 public class ApiHooks {
 
-    @Before(order = 0)
+    @Before("@api")
     public void setupApi() {
+
         ApiConfig.init();
+
         ApiContext.getInstance().clear();
+
         DatabaseInitializer.createTable();
     }
 
-    @After
+    @After("@api")
     public void saveExecution(Scenario scenario) {
 
         ApiContext context =
                 ApiContext.getInstance();
+
+        if (context.getResponse() == null) {
+            return;
+        }
 
         TestExecution execution =
                 new TestExecution();

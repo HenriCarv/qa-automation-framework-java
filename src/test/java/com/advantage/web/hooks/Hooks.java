@@ -10,7 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
 
-    @Before
+    @Before("@web")
     public void setUp() {
 
         DriverFactory.getDriver();
@@ -20,35 +20,44 @@ public class Hooks {
                 .deleteAllCookies();
     }
 
-    @AfterStep
+    @AfterStep("@web")
     public void afterStep(Scenario scenario) {
 
         try {
 
-            byte[] screenshot = ((TakesScreenshot) DriverFactory.getDriver())
-                    .getScreenshotAs(OutputType.BYTES);
+            if (DriverFactory.getDriver() != null) {
 
-            scenario.attach(
-                    screenshot,
-                    "image/png",
-                    "Step Screenshot"
-            );
+                byte[] screenshot =
+                        ((TakesScreenshot) DriverFactory.getDriver())
+                                .getScreenshotAs(OutputType.BYTES);
+
+                scenario.attach(
+                        screenshot,
+                        "image/png",
+                        "Step Screenshot"
+                );
+            }
 
         } catch (Exception e) {
 
-            System.out.println("Erro screenshot step: " + e.getMessage());
+            System.out.println(
+                    "Erro screenshot step: "
+                            + e.getMessage()
+            );
         }
     }
 
-    @After
+    @After("@web")
     public void tearDown(Scenario scenario) {
 
         try {
 
-            if (scenario.isFailed()) {
+            if (DriverFactory.getDriver() != null
+                    && scenario.isFailed()) {
 
-                byte[] screenshot = ((TakesScreenshot) DriverFactory.getDriver())
-                        .getScreenshotAs(OutputType.BYTES);
+                byte[] screenshot =
+                        ((TakesScreenshot) DriverFactory.getDriver())
+                                .getScreenshotAs(OutputType.BYTES);
 
                 scenario.attach(
                         screenshot,
@@ -59,11 +68,24 @@ public class Hooks {
 
         } catch (Exception e) {
 
-            System.out.println("Erro screenshot falha: " + e.getMessage());
+            System.out.println(
+                    "Erro screenshot falha: "
+                            + e.getMessage()
+            );
 
         } finally {
 
-            DriverFactory.quitDriver();
+            try {
+
+                DriverFactory.quitDriver();
+
+            } catch (Exception e) {
+
+                System.out.println(
+                        "Erro ao fechar driver: "
+                                + e.getMessage()
+                );
+            }
         }
     }
 }

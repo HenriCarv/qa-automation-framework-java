@@ -1,3 +1,4 @@
+@web
 Feature: Checkout
 
   As a user of the Advantage Shopping platform
