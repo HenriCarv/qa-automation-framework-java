@@ -1,5 +1,6 @@
 package com.advantage.api.client;
 
+import com.advantage.api.context.ApiContext;
 import com.advantage.api.model.LoginRequest;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
@@ -9,29 +10,53 @@ import static io.restassured.RestAssured.given;
 
 public class AccountClient {
 
-    @Step("Login na API")
+    private final ApiContext context = ApiContext.getInstance();
+
+    @Step("POST - Login")
     public Response login(LoginRequest request) {
 
-        return given()
-                .log().all()
-                .contentType(ContentType.JSON)
-                .body(request)
-                .when()
-                .post("/accountservice/accountrest/api/v1/login")
-                .then()
-                .extract()
-                .response();
+        String url =
+                "/accountservice/accountrest/api/v1/login";
+
+        context.setRequestMethod("POST");
+        context.setRequestUrl(url);
+        context.setRequestBody(request.toString());
+
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .body(request)
+                        .when()
+                        .post(url)
+                        .then()
+                        .extract()
+                        .response();
+
+        context.setResponse(response);
+
+        return response;
     }
 
-    @Step("Health Check")
+    @Step("GET - Health Check")
     public Response healthCheck() {
 
-        return given()
-                .log().all()
-                .when()
-                .get("/accountservice/accountrest/api/v1/health-check")
-                .then()
-                .extract()
-                .response();
+        String url =
+                "/accountservice/accountrest/api/v1/health-check";
+
+        context.setRequestMethod("GET");
+        context.setRequestUrl(url);
+        context.setRequestBody(null);
+
+        Response response =
+                given()
+                        .when()
+                        .get(url)
+                        .then()
+                        .extract()
+                        .response();
+
+        context.setResponse(response);
+
+        return response;
     }
 }

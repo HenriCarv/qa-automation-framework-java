@@ -10,7 +10,7 @@ public class ProductClient {
 
     private final ApiContext context = ApiContext.getInstance();
 
-    @Step("GET - All products")
+    @Step("GET - All Products")
     public Response getAllProducts() {
 
         String url = "/catalog/api/v1/products";
@@ -19,6 +19,8 @@ public class ProductClient {
         context.setRequestUrl(url);
         context.setRequestBody(null);
 
+        long startTime = System.currentTimeMillis();
+
         Response response =
                 given()
                         .when()
@@ -27,12 +29,21 @@ public class ProductClient {
                         .extract()
                         .response();
 
+        long responseTime =
+                System.currentTimeMillis() - startTime;
+
         context.setResponse(response);
+
+        System.out.println(
+                "Endpoint: " + url +
+                        " | Status: " + response.statusCode() +
+                        " | Response Time: " + responseTime + " ms"
+        );
 
         return response;
     }
 
-    @Step("GET - Product by ID")
+    @Step("GET - Product By ID")
     public Response getProductById(int id) {
 
         String url = "/catalog/api/v1/products/" + id;
@@ -41,6 +52,8 @@ public class ProductClient {
         context.setRequestUrl(url);
         context.setRequestBody(null);
 
+        long startTime = System.currentTimeMillis();
+
         Response response =
                 given()
                         .when()
@@ -49,7 +62,16 @@ public class ProductClient {
                         .extract()
                         .response();
 
+        long responseTime =
+                System.currentTimeMillis() - startTime;
+
         context.setResponse(response);
+
+        System.out.println(
+                "Endpoint: " + url +
+                        " | Status: " + response.statusCode() +
+                        " | Response Time: " + responseTime + " ms"
+        );
 
         return response;
     }
@@ -63,6 +85,8 @@ public class ProductClient {
         context.setRequestUrl(url);
         context.setRequestBody(null);
 
+        long startTime = System.currentTimeMillis();
+
         Response response =
                 given()
                         .when()
@@ -71,7 +95,16 @@ public class ProductClient {
                         .extract()
                         .response();
 
+        long responseTime =
+                System.currentTimeMillis() - startTime;
+
         context.setResponse(response);
+
+        System.out.println(
+                "Endpoint: " + url +
+                        " | Status: " + response.statusCode() +
+                        " | Response Time: " + responseTime + " ms"
+        );
 
         return response;
     }
@@ -85,6 +118,8 @@ public class ProductClient {
         context.setRequestUrl(url);
         context.setRequestBody(null);
 
+        long startTime = System.currentTimeMillis();
+
         Response response =
                 given()
                         .when()
@@ -93,7 +128,16 @@ public class ProductClient {
                         .extract()
                         .response();
 
+        long responseTime =
+                System.currentTimeMillis() - startTime;
+
         context.setResponse(response);
+
+        System.out.println(
+                "Endpoint: " + url +
+                        " | Status: " + response.statusCode() +
+                        " | Response Time: " + responseTime + " ms"
+        );
 
         return response;
     }
