@@ -1,3 +1,4 @@
+@web
 Feature: Login
 
   As a Advantage Shopping user

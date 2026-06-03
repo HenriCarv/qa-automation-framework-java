@@ -5,27 +5,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-/**
- * Classe responsável pelo gerenciamento do WebDriver.
- */
 public class DriverFactory {
 
     private static WebDriver driver;
-
-    private DriverFactory() {
-    }
 
     public static WebDriver getDriver() {
 
         if (driver == null) {
 
-            // Faz download automático da versão correta do driver
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions options = new ChromeOptions();
 
-            // Inicia maximizado
-            options.addArguments("--start-maximized");
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--disable-gpu");
 
             driver = new ChromeDriver(options);
         }
@@ -36,7 +32,6 @@ public class DriverFactory {
     public static void quitDriver() {
 
         if (driver != null) {
-
             driver.quit();
             driver = null;
         }
