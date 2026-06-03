@@ -8,6 +8,11 @@ target/
 *.ear
 
 # =========================
+# MAVEN WRAPPER
+# =========================
+.mvn/wrapper/maven-wrapper.jar
+
+# =========================
 # INTELLIJ IDEA
 # =========================
 .idea/
@@ -29,20 +34,35 @@ out/
 # =========================
 *.log
 logs/
+target/logs/
 
 # =========================
-# REPORTS (ALLURE / TEST OUTPUT)
+# ALLURE
 # =========================
 allure-results/
 allure-report/
-test-output/
-surefire-reports/
+target/allure-results/
+target/site/allure-maven-plugin/
 
 # =========================
-# SELENIUM / SCREENSHOTS
+# TEST REPORTS
+# =========================
+test-output/
+surefire-reports/
+failsafe-reports/
+
+# =========================
+# SCREENSHOTS / EVIDENCES
 # =========================
 screenshots/
 videos/
+
+# =========================
+# DATABASE
+# =========================
+*.db
+*.sqlite
+*.sqlite3
 
 # =========================
 # OS FILES
@@ -51,7 +71,13 @@ videos/
 Thumbs.db
 
 # =========================
-# ENV / CONFIG SENSÍVEL
+# ENVIRONMENT
 # =========================
 .env
 config.properties.local
+
+# =========================
+# TEMP FILES
+# =========================
+temp/
+tmp/
